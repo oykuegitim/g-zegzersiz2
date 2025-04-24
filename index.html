@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Hız Ayarlı Göz Egzersizi</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #0d6efd;
+    }
+    #container {
+      width: 90%;
+      height: 150px;
+      border: 2px dashed #0d6efd;
+      position: relative;
+      overflow: hidden;
+      margin: 30px 0;
+      background: white;
+    }
+    #dot {
+      font-size: 40px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #controls {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hız Ayarlı Göz Egzersizi</h1>
+  <p>🔵 Gözlerinle hareketli simgeyi takip et. Aşağıdan hızı ayarlayabilirsin.</p>
+  <div id="container">
+    <div id="dot">🔵</div>
+  </div>
+  <div id="controls">
+    Hız: <input type="range" id="speedSlider" min="1" max="20" value="5"> <span id="speedValue">5</span> px/frame
+  </div>
+
+  <script>
+    const dot = document.getElementById("dot");
+    const container = document.getElementById("container");
+    const speedSlider = document.getElementById("speedSlider");
+    const speedValue = document.getElementById("speedValue");
+
+    let x = 0;
+    let speed = parseInt(speedSlider.value);
+
+    speedSlider.addEventListener("input", () => {
+      speed = parseInt(speedSlider.value);
+      speedValue.textContent = speed;
+    });
+
+    function animate() {
+      x += speed;
+      if (x > container.offsetWidth) {
+        x = -40; // simge ekranın dışına çıktıysa yeniden başlat
+      }
+      dot.style.left = x + "px";
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
